@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_mainFragment_to_twoFragment"
             app:destination="@id/twoFragment" />
+        <argument
+            android:name="fromWhere"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/oneFragment"
@@ -25,6 +28,9 @@
         <argument
             android:name="fromWhere"
             app:argType="string" />
+        <action
+            android:id="@+id/action_oneFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/twoFragment"

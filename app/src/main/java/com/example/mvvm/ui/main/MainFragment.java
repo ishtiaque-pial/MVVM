@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,12 @@ public class MainFragment extends Fragment {
                 Navigation.findNavController(view).navigate(R.id.twoFragment);
             }
         });
+
+        try {
+            Log.e("fhjgfdhj", "" + MainFragmentArgs.fromBundle(getArguments()).getFromWhere());
+        } catch (Exception e) {
+
+        }
 
         return view;
     }

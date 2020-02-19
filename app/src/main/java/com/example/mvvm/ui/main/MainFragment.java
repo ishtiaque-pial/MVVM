@@ -7,16 +7,20 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.mvvm.R;
 
 public class MainFragment extends Fragment {
 
     private MainViewModel mViewModel;
+    private Button buttonOne,buttonTwo;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -26,7 +30,26 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.main_fragment, container, false);
+        View view =inflater.inflate(R.layout.main_fragment, container, false);
+        buttonOne = view.findViewById(R.id.buttonOne);
+        buttonTwo = view.findViewById(R.id.buttonTwo);
+
+        buttonOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavDirections action =  MainFragmentDirections.actionMainFragmentToOneFragment("ghfghf");
+                Navigation.findNavController(view).navigate(action);
+            }
+        });
+
+        buttonTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.twoFragment);
+            }
+        });
+
+        return view;
     }
 
     @Override

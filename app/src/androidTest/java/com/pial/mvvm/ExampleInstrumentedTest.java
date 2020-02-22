@@ -1,4 +1,4 @@
-package com.example.mvvm;
+package com.pial.mvvm;
 
 import android.content.Context;
 

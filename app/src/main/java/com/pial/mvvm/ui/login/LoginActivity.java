@@ -13,15 +13,13 @@ import javax.inject.Inject;
 
 public class LoginActivity extends BaseActivity<LoginActivityViewModel> {
 
-    LoginActivityViewModel viewModel;
     @Inject
-    ViewModelProvider.Factory factory;
+    LoginActivityViewModel viewModel;
     @Inject
     ResourceProvider resourceProvider;
 
     @Override
     public LoginActivityViewModel getViewModel() {
-        viewModel = new ViewModelProvider(this, factory).get(LoginActivityViewModel.class);
         return viewModel;
     }
 

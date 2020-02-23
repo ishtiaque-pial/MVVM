@@ -15,9 +15,4 @@ public class LoginActivityModule {
         return new LoginActivityViewModel();
     }
 
-    @Provides
-    ViewModelProvider.Factory provideViewModelProvider(LoginActivityViewModel viewModel){
-        return new ViewModelProviderFactory<>(viewModel);
-    }
-
 }

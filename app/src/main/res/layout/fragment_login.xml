@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.pial.mvvm.ui.login.view.login.LoginFragment">
     <data>
+        <variable
+            name="viewModel"
+            type="com.pial.mvvm.ui.login.view.login.LoginFragmentViewModel" />
     </data>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

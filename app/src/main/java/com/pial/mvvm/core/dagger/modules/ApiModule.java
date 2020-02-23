@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class ApiModule {
     private int REQUEST_TIMEOUT = 10;
-    private String BASE_URL= "";
+    private String BASE_URL= "https://api.sharetrip.net/";
 
     @Singleton
     @Provides

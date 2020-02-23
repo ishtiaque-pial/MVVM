@@ -9,6 +9,6 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuilder {
 
-    @ContributesAndroidInjector(modules = LoginActivityModule.class)
+    @ContributesAndroidInjector(modules = {LoginActivityModule.class})
     abstract LoginActivity contributeLoginActivity();
 }

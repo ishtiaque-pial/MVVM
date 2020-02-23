@@ -17,7 +17,6 @@ import com.pial.mvvm.databinding.FragmentLoginBinding;
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment {
-
     private FragmentLoginBinding binding;
 
     @Override
@@ -26,5 +25,4 @@ public class LoginFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
         return binding.getRoot();
     }
-
 }

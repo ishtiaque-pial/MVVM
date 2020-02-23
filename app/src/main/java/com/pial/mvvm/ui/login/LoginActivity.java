@@ -29,6 +29,5 @@ public class LoginActivity extends BaseActivity<LoginActivityViewModel> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_activity);
-        Log.e("fbgfghf",""+resourceProvider.getString(R.string.app_name));
     }
 }

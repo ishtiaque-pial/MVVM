@@ -1,5 +1,6 @@
 package com.pial.mvvm.ui.login.view.login;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,12 +28,26 @@ public class LoginFragment extends BaseFragment<LoginFragmentViewModel> {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
         binding.setViewModel(viewModel);
+        viewModel.getLoginInformation().observe(getViewLifecycleOwner(),apiResponse -> {
+            switch (apiResponse.status) {
+                case LOADING:
+                    Log.e("fgdshf","LOADING");
+                    break;
+                case SUCCESS:
+                    Log.e("fgdshf","SUCCESS");
+                    break;
+                case ERROR:
+                    Log.e("fgdshf","ERROR "+apiResponse.error.getMessage());
+                    break;
+            }
+        });
+
         return binding.getRoot();
     }
 
     @Override
     public LoginFragmentViewModel getViewModel() {
-        viewModel = new ViewModelProvider((ViewModelStoreOwner) getViewLifecycleOwner(), factory).get(LoginFragmentViewModel.class);
+        viewModel = new ViewModelProvider(this, factory).get(LoginFragmentViewModel.class);
         return viewModel;
     }
 }

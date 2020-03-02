@@ -17,7 +17,7 @@ public class LoginFragmentViewModel extends ViewModel {
     private LoginFragmentRepository repository;
     public LoginRequest loginRequest;
     private MutableLiveData<LoginFragmentRepository> repositoryLiveDta = new MutableLiveData<>();
-    public LiveData<ApiResponse> liveData = Transformations.switchMap(repositoryLiveDta,input -> input.onLoginAttemp(loginRequest));
+    public MediatorLiveData<ApiResponse> liveData = new MediatorLiveData<>();
 
     @Inject
     public LoginFragmentViewModel(LoginFragmentRepository repository,LoginRequest loginRequest) {
@@ -32,8 +32,7 @@ public class LoginFragmentViewModel extends ViewModel {
         } else if (loginRequest.getPassword().isEmpty()) {
             Log.e("dgjhdgfhj","password empty");
         } else {
-            repositoryLiveDta.setValue(repository);
-           // liveData = repository.onLoginAttemp(loginRequest);
+            liveData.addSource(repository.onLoginAttemp(loginRequest),apiResponse -> liveData.setValue(apiResponse));
         }
     }
 

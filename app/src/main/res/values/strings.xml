@@ -10,4 +10,6 @@
     <string name="continue_">Continue</string>
     <string name="no_account">DON\'T HAVE AN ACCOUNT?</string>
     <string name="sign_up">SIGNUP</string>
+    <string name="phone_empty">phone empty</string>
+    <string name="password_empty">password empty</string>
 </resources>

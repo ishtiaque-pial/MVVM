@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.pial.mvvm.core.network.ApiService;
 import com.pial.mvvm.core.network.request.login.LoginRequest;
 import com.pial.mvvm.utils.factory.ViewModelProviderFactory;
+import com.pial.mvvm.utils.resource.ResourceProvider;
 
 import java.util.List;
 
@@ -17,8 +18,8 @@ import io.reactivex.disposables.CompositeDisposable;
 @Module
 public class LoginFragmentModule {
     @Provides
-    LoginFragmentViewModel provideLoginFragmentViewModel(LoginFragmentRepository repository,LoginRequest loginRequest){
-        return new LoginFragmentViewModel(repository,loginRequest);
+    LoginFragmentViewModel provideLoginFragmentViewModel(LoginFragmentRepository repository, LoginRequest loginRequest, ResourceProvider resourceProvider){
+        return new LoginFragmentViewModel(repository,loginRequest,resourceProvider);
     }
 
     @Provides

@@ -47,5 +47,8 @@ public class LoginFragmentRepository {
         return responseLiveData;
     }
 
+    void onClearDisposable(){
+        disposable.clear();
+    }
 
 }

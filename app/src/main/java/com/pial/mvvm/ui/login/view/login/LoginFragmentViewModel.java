@@ -20,7 +20,7 @@ public class LoginFragmentViewModel extends ViewModel {
     public LoginRequest loginRequest;
     public ObservableField<String> observableFieldForEmail = new ObservableField<>();
     public ObservableField<String> observableFieldForPassword = new ObservableField<>();
-    private MediatorLiveData<ApiResponse> apiResponseLiveData = new MediatorLiveData<>();
+    public MediatorLiveData<ApiResponse> apiResponseLiveData = new MediatorLiveData<>();
 
     @Inject
     public LoginFragmentViewModel(LoginFragmentRepository repository, LoginRequest loginRequest, ResourceProvider resourceProvider) {
@@ -37,12 +37,10 @@ public class LoginFragmentViewModel extends ViewModel {
             observableFieldForEmail.set(resourceProvider.getString(R.string.password_empty));
         } else {
             apiResponseLiveData.addSource(repository.onLoginAttemp(loginRequest), apiResponse -> apiResponseLiveData.setValue(apiResponse));
+            apiResponseLiveData.addSource(repository.onLoginAttempTwo(loginRequest), apiResponse -> apiResponseLiveData.setValue(apiResponse));
         }
     }
 
-    public LiveData<ApiResponse> getLoginInformation() {
-        return apiResponseLiveData;
-    }
 
     @Override
     protected void onCleared() {

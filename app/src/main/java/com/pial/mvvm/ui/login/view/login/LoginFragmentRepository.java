@@ -47,6 +47,26 @@ public class LoginFragmentRepository {
         return responseLiveData;
     }
 
+    public MutableLiveData<ApiResponse> onLoginAttempTwo(LoginRequest loginRequest) {
+        responseLiveData.setValue(ApiResponse.loading());
+        Single<LoginResponse> observer = apiService.onLoginRequest(loginRequest);
+        disposable.add(observer
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<LoginResponse>() {
+                    @Override
+                    public void onSuccess(LoginResponse loginResponse) {
+                        responseLiveData.postValue(ApiResponse.success(loginResponse));
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        responseLiveData.postValue(ApiResponse.error(e));
+                    }
+                }));
+        return responseLiveData;
+    }
+
     void onClearDisposable(){
         disposable.clear();
     }

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.pial.mvvm.R;
 import com.pial.mvvm.core.base.BaseFragment;
+import com.pial.mvvm.core.network.response.login.LoginResponse;
 import com.pial.mvvm.databinding.FragmentLoginBinding;
 
 import javax.inject.Inject;
@@ -26,13 +27,16 @@ public class LoginFragment extends BaseFragment<LoginFragmentViewModel> {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_login, container, false);
         binding.setViewModel(viewModel);
-        viewModel.getLoginInformation().observe(getViewLifecycleOwner(),apiResponse -> {
+        viewModel.apiResponseLiveData.observe(getViewLifecycleOwner(),apiResponse -> {
             switch (apiResponse.status) {
                 case LOADING:
                     Log.e("fgdshf","LOADING");
                     break;
                 case SUCCESS:
-                    Log.e("fgdshf","SUCCESS");
+                    if (apiResponse.data instanceof LoginResponse) {
+                        Log.e("dfhjgdfh", ""+((LoginResponse) apiResponse.data).getAccess());
+                        Log.e("fgdshf", "SUCCESS");
+                    }
                     break;
                 case ERROR:
                     Log.e("fgdshf","ERROR "+apiResponse.error.getMessage());

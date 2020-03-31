@@ -1,10 +1,7 @@
 package com.pial.mvvm.ui.login.view.login;
 
-import android.util.Log;
-
 import androidx.databinding.ObservableField;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.pial.mvvm.R;
@@ -20,15 +17,20 @@ public class LoginFragmentViewModel extends ViewModel {
     public LoginRequest loginRequest;
     public ObservableField<String> observableFieldForEmail = new ObservableField<>();
     public ObservableField<String> observableFieldForPassword = new ObservableField<>();
-    public MediatorLiveData<ApiResponse> apiResponseLiveData = new MediatorLiveData<>();
+    MutableLiveData<ApiResponse> apiResponseLiveData;
+    private String token = "";
 
     @Inject
     public LoginFragmentViewModel(LoginFragmentRepository repository, LoginRequest loginRequest, ResourceProvider resourceProvider) {
         this.repository = repository;
         this.loginRequest = loginRequest;
         this.resourceProvider = resourceProvider;
+        apiResponseLiveData = this.repository.responseLiveData;
     }
 
+    void setUserInfo(String token) {
+        this.token = token;
+    }
 
     public void onLoginBtnClick() {
         if (loginRequest.getPhoneNumber().isEmpty()) {
@@ -36,11 +38,16 @@ public class LoginFragmentViewModel extends ViewModel {
         } else if (loginRequest.getPassword().isEmpty()) {
             observableFieldForEmail.set(resourceProvider.getString(R.string.password_empty));
         } else {
-            apiResponseLiveData.addSource(repository.onLoginAttemp(loginRequest), apiResponse -> apiResponseLiveData.setValue(apiResponse));
-            apiResponseLiveData.addSource(repository.onLoginAttempTwo(loginRequest), apiResponse -> apiResponseLiveData.setValue(apiResponse));
+            apiResponseLiveData = repository.onLoginAttemp(loginRequest);
         }
     }
 
+    public void onProfileGet() {
+        if (!token.isEmpty()) {
+            apiResponseLiveData = repository.onGetUserInfo("JWT "+token);
+        }
+
+    }
 
     @Override
     protected void onCleared() {

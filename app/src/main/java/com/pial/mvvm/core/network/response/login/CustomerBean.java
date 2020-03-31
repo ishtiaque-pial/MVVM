@@ -10,6 +10,17 @@ public class CustomerBean {
     @SerializedName("qr_code")
     private String qrCode;
 
+    @SerializedName("user")
+    private UserBean user;
+
+    public UserBean getUser() {
+        return user;
+    }
+
+    public void setUser(UserBean user) {
+        this.user = user;
+    }
+
     public String getQrCode() {
         return qrCode;
     }

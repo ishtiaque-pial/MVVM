@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.pial.mvvm.core.network.ApiService;
 import com.pial.mvvm.core.network.request.login.LoginRequest;
 import com.pial.mvvm.core.network.response.ApiResponse;
+import com.pial.mvvm.core.network.response.login.CustomerBean;
 import com.pial.mvvm.core.network.response.login.LoginResponse;
 
 import javax.inject.Inject;
@@ -19,15 +20,15 @@ import io.reactivex.schedulers.Schedulers;
 public class LoginFragmentRepository {
     private ApiService apiService;
     private CompositeDisposable disposable;
-    private final MutableLiveData<ApiResponse> responseLiveData = new MutableLiveData<>();
+    public  MutableLiveData<ApiResponse> responseLiveData = new MutableLiveData<>();
 
     @Inject
-    public LoginFragmentRepository(ApiService apiService, CompositeDisposable disposable) {
+    LoginFragmentRepository(ApiService apiService, CompositeDisposable disposable) {
         this.apiService = apiService;
         this.disposable = disposable;
     }
 
-    public MutableLiveData<ApiResponse> onLoginAttemp(LoginRequest loginRequest) {
+    MutableLiveData<ApiResponse> onLoginAttemp(LoginRequest loginRequest) {
         responseLiveData.setValue(ApiResponse.loading());
         Single<LoginResponse> observer = apiService.onLoginRequest(loginRequest);
         disposable.add(observer
@@ -47,16 +48,16 @@ public class LoginFragmentRepository {
         return responseLiveData;
     }
 
-    public MutableLiveData<ApiResponse> onLoginAttempTwo(LoginRequest loginRequest) {
+    public MutableLiveData<ApiResponse> onGetUserInfo(String token) {
         responseLiveData.setValue(ApiResponse.loading());
-        Single<LoginResponse> observer = apiService.onLoginRequest(loginRequest);
+        Single<CustomerBean> observer = apiService.onGetProfileResponse(token,"850");
         disposable.add(observer
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<LoginResponse>() {
+                .subscribeWith(new DisposableSingleObserver<CustomerBean>() {
                     @Override
-                    public void onSuccess(LoginResponse loginResponse) {
-                        responseLiveData.postValue(ApiResponse.success(loginResponse));
+                    public void onSuccess(CustomerBean customerBean) {
+                        responseLiveData.postValue(ApiResponse.success(customerBean));
                     }
 
                     @Override

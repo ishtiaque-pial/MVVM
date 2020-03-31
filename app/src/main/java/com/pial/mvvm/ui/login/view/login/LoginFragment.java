@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.pial.mvvm.R;
 import com.pial.mvvm.core.base.BaseFragment;
+import com.pial.mvvm.core.network.response.login.CustomerBean;
 import com.pial.mvvm.core.network.response.login.LoginResponse;
 import com.pial.mvvm.databinding.FragmentLoginBinding;
 
@@ -33,9 +34,12 @@ public class LoginFragment extends BaseFragment<LoginFragmentViewModel> {
                     Log.e("fgdshf","LOADING");
                     break;
                 case SUCCESS:
+                    Log.e("fgdshf","SUCCESS");
                     if (apiResponse.data instanceof LoginResponse) {
-                        Log.e("dfhjgdfh", ""+((LoginResponse) apiResponse.data).getAccess());
-                        Log.e("fgdshf", "SUCCESS");
+                        viewModel.setUserInfo(((LoginResponse) apiResponse.data).getAccess());
+                        Log.e("fgdshf"," "+((LoginResponse) apiResponse.data).getAccess());
+                    } else if (apiResponse.data instanceof CustomerBean) {
+                        Log.e("fgdshf"," "+((CustomerBean) apiResponse.data).getUser().getName());
                     }
                     break;
                 case ERROR:
